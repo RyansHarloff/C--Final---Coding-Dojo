@@ -1,0 +1,36 @@
+<partial name = "_NavBarPartial1"/>
+<h1>Dojo Activity Center</h1>
+<table class = "table table-striped">
+    <tr>
+        <th>Activity</th>
+        <th>Date & Time</th>
+        <th>Duration</th>
+        <th>Coordinator</th>
+        <th>Players</th>
+        <th>Actions</th>
+    </tr>
+    @foreach(Game g in ViewBag.AllGames)
+    {
+        <tr>
+            <td><a href="OneGame/@g.GameId">@g.Title</a></td>
+            <td>@g.Date</td>
+            <td>@g.Duration @g.Time</td>
+            <td>@g.User.Name</td>
+            <td>@g.PlayersWhoJoined.Count()</td>
+            <td>
+                @{
+                if(g.UserId == ViewBag.Users.UserId)
+                {
+                    <a class="btn btn-danger" href="/delete/@g.GameId" role="button">Delete</a>
+                } else{
+                    if(g.PlayersWhoJoined.Any(a => a.UserId == ViewBag.Users.UserId))
+                {
+                    <a class="btn btn-primary" href="Unjoin/@ViewBag.Users.UserId/@g.GameId/Dashboard" role="button">UnJoin</a>
+                }else{
+                    <a class="btn btn-success" href="Join/@ViewBag.Users.UserId/@g.GameId/Dashboard" role="button">Join</a>
+                }
+                }
+                }
+                </td>
+        </tr>
+    }

@@ -1,0 +1,23 @@
+<Partial name = "_NavBarPartial2"/>
+@model Game
+<h1>@Model.Title</h1>
+<hr>
+<h3>Coordinator : @Model.User.Name</h3>
+<hr>
+<h2>Description: </h2>
+<h3>@Model.Description</h3>
+@{
+    if(Model.UserId == ViewBag.User.UserId)
+    {
+        <a class="btn btn-danger" href="/delete/@Model.GameId" role="button">Delete</a>
+    }else{
+    <a class="btn btn-success" asp-area="" asp-controller="Home" asp-action="Dashboard">Home</a>
+    }
+}
+<h2>Players</h2>
+@{
+    foreach(Player m in Model.PlayersWhoJoined)
+    {
+        <p>@m.User.Name</p>
+    }
+} 
